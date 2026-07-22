@@ -1399,8 +1399,15 @@ function renderChecklist() {
   const isLast    = S.idx === total - 1;
   const complete  = Object.keys(S.answers).length === total;
 
-  document.getElementById('next-wrap').style.display = (answered && !isLast) ? 'block' : 'none';
-  document.getElementById('eval-wrap').style.display = (isLast && complete)  ? 'block' : 'none';
+  const nextWrap = document.getElementById('next-wrap');
+  const evalWrap = document.getElementById('eval-wrap');
+  nextWrap.style.display = (answered && !isLast) ? 'block' : 'none';
+  evalWrap.style.display = (isLast && complete)  ? 'block' : 'none';
+  // Fuerza repintado: mismo bug de Safari/WebKit que en showScreen() — a veces no
+  // repinta el botón "Ver resultado" al pasar de display:none a block, dejando al
+  // usuario sin forma de avanzar tras responder la última pregunta.
+  void nextWrap.offsetHeight;
+  void evalWrap.offsetHeight;
 
   // Animate card
   const card = document.getElementById('q-card');
