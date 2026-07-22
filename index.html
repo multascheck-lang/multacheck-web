@@ -672,6 +672,10 @@
         <a href="privacidad.html" style="font-size:12px;color:var(--text2)">Política de Privacidad</a>
       </div>
 
+      <p style="font-size:11px;color:var(--text2);line-height:1.6;text-align:center;margin-top:14px;max-width:380px;margin-left:auto;margin-right:auto">
+        MultaCheck genera documentos de reclamación de derechos basados en la normativa colombiana vigente (Ley 769/2002, Ley 1843/2017, CPACA). No constituye asesoría jurídica formal ni reemplaza la consulta con un abogado especializado. Para casos complejos, consulta un profesional del derecho. © 2026 MultaCheck.
+      </p>
+
     </div>
   </div>
 
@@ -1313,7 +1317,14 @@ async function pay(docType) {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(id);
-  if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+  if (el) {
+    el.classList.add('active');
+    // Fuerza un reflow: Safari/WebKit a veces no repinta el contenido interno de
+    // un contenedor grande (ej. el documento legal) justo al pasar de display:none
+    // a flex, dejando un frame en blanco hasta el siguiente toque/scroll.
+    void el.offsetHeight;
+    window.scrollTo(0, 0);
+  }
 }
 
 // Oculta el splash y sincroniza el fondo del shell (html/body) y el theme-color
