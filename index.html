@@ -142,6 +142,11 @@
     }
     .field input:focus { border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 4px rgba(0,113,227,.12); }
     .field input::placeholder { color: #a1a1a6; }
+    /* iOS Safari centra y agranda el valor de <input type="date"> por defecto,
+       haciendo que se vea distinto a los demás campos del formulario */
+    .field input[type="date"] { -webkit-appearance: none; appearance: none; }
+    .field input[type="date"]::-webkit-date-and-time-value { text-align: left; font-size: 15px; }
+    .field input[type="date"]::-webkit-datetime-edit { font-size: 15px; }
 
     /* ── SPLASH ── */
     #splash {
